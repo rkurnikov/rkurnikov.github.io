@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#080e20" />
+  <meta name="description" id="description" content="В нужное время, в нужном месте. Пока звезда летит, загадайте желание." />
+  <link rel="canonical" href="https://romankurnikov.ru/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Make a Wish" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="zh_CN" />
+  <meta property="og:title" content="В нужное время, в нужном месте — Make a Wish" />
+  <meta property="og:description" content="Пока звезда летит, загадайте желание." />
+  <meta property="og:url" content="https://romankurnikov.ru/" />
+  <meta property="og:image" content="https://romankurnikov.ru/share-preview.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Падающая звезда на тёмно-синем звёздном небе" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Make a Wish" />
+  <meta name="twitter:description" content="В нужное время, в нужном месте." />
+  <meta name="twitter:image" content="https://romankurnikov.ru/share-preview.jpg" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>Make a Wish — RK</title>
+  <style>
+    :root { color-scheme: dark; --white: #f6f5f2; --muted: #bac4d6; }
+    *,*::before,*::after {box-sizing:border-box}
+    html,body {width:100%;height:100%;margin:0;overflow:hidden}
+    body {font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#080e20;color:var(--white);-webkit-font-smoothing:antialiased}
+    .space {position:fixed;inset:0;overflow:hidden;isolation:isolate;background:radial-gradient(ellipse 84% 55% at 58% 40%,#172543 0%,#0b1730 38%,#080f22 75%,#070d1c 100%)}
+    .space::before {content:"";position:absolute;inset:-15%;pointer-events:none;background:radial-gradient(ellipse 42% 32% at 55% 55%,rgba(75,92,130,.07),transparent 85%),radial-gradient(ellipse 36% 28% at 15% 85%,rgba(49,78,143,.065),transparent 90%);filter:blur(22px)}
+    .space::after {content:"";position:absolute;inset:0;pointer-events:none;opacity:.17;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.52' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E")}
+    canvas {display:block;position:absolute;inset:0;width:100%;height:100%;touch-action:manipulation}
+    .top {position:absolute;top:clamp(22px,5.4vh,52px);right:clamp(19px,4vw,65px);z-index:4;display:flex;gap:6px;align-items:center}
+    .lang {font:500 11px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;letter-spacing:.07em;color:#9ba8be;background:transparent;border:0;min-width:44px;min-height:44px;padding:12px 8px;border-radius:6px;cursor:pointer;transition:color .2s ease,background .2s ease}
+    .lang:hover {color:#fff;background:#ffffff0d}
+    .lang:focus-visible {color:#fff;background:#ffffff0d;outline:1px solid #b9cdef;outline-offset:2px}
+    .lang[aria-pressed="true"] {color:#fff}
+    .lang[aria-pressed="true"]::after {content:"";display:block;margin:6px auto -6px;width:12px;height:1px;background:#d9e6ff}
+    .content {position:absolute;left:0;right:0;bottom:max(12%,calc(env(safe-area-inset-bottom) + 68px));z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 20px;pointer-events:none}
+    h1 {font-family:Georgia,"Times New Roman",serif;font-size:clamp(27px,2.5vw,38px);font-weight:400;letter-spacing:-.025em;line-height:1.25;max-width:750px;margin:0;color:#e9edf5;text-wrap:balance;text-shadow:0 2px 32px #07102345;transition:opacity .46s ease,transform .46s ease}
+    h1 span{display:block}
+    h1.changing{opacity:0;transform:translateY(7px)}
+    .instruction {font-size:clamp(12px,1.05vw,15px);font-weight:350;line-height:1.7;letter-spacing:.018em;color:#aebbd0;margin:17px 0 0;min-height:2em;transition:opacity .46s ease}
+    .instruction.done {opacity:0}
+    .repeat {display:inline-flex;align-items:center;justify-content:center;min-height:44px;gap:7px;background:transparent;border:0;border-bottom:1px solid #a5b6d265;color:#d5deef;border-radius:0;padding:5px 0;margin:4px 0 0;cursor:pointer;font-size:14px;letter-spacing:.012em;transition:color .25s ease,border .25s ease,opacity .45s ease,transform .45s ease;opacity:0;transform:translateY(5px);pointer-events:none}
+    .repeat.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+    .repeat:hover{color:#fff;border-color:#dceaff}
+    .repeat:focus-visible{color:#fff;border-color:#dceaff;outline:1px solid #b9cdef;outline-offset:5px}
+    .repeat svg{width:13px;height:13px}
+    .credit {position:absolute;left:clamp(19px,4vw,65px);bottom:max(27px,calc(env(safe-area-inset-bottom) + 20px));color:#6f819e;font-size:10px;letter-spacing:.15em;z-index:4}
+    @media(max-width:650px){.space{background:radial-gradient(ellipse 112% 50% at 60% 34%,#172642 0%,#0b1730 51%,#070d1c 100%)}.top{top:max(23px,calc(env(safe-area-inset-top) + 16px));right:19px}.content{bottom:max(16%,calc(env(safe-area-inset-bottom) + 106px));padding:0 25px}h1{font-size:clamp(27px,7vw,36px);line-height:1.27}.instruction{max-width:285px;margin-top:19px;font-size:12px}.credit{bottom:max(22px,calc(env(safe-area-inset-bottom) + 17px));left:22px;font-size:9px}}
+    @media(prefers-reduced-motion:reduce){.space::before{filter:none}.instruction,.repeat,h1{transition:none}}
+  </style>
+</head>
+<body>
+  <main class="space" id="experience" aria-label="Ночное небо и падающая звезда">
+    <canvas id="sky" aria-hidden="true"></canvas>
+    <nav class="top" id="language-nav" aria-label="Выбор языка">
+      <button class="lang" data-lang="ru" aria-pressed="true">RU</button>
+      <button class="lang" data-lang="en" aria-pressed="false">EN</button>
+      <button class="lang" data-lang="zh" aria-pressed="false">中文</button>
+    </nav>
+    <section class="content" aria-live="polite">
+      <h1 id="headline"><span>В нужное время,</span><span>в нужном месте.</span></h1>
+      <p class="instruction" id="instruction">Пока звезда летит, загадайте желание.</p>
+      <button class="repeat" id="repeat" type="button" disabled aria-hidden="true" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11a9 9 0 1 1 2.6 6.4"/><path d="M3 4v7h7"/></svg><span id="repeat-text">Загадать ещё одно</span></button>
+    </section>
+    <div class="credit" aria-label="RK">RK</div>
+  </main>
+  <script>
+  (()=>{
+    'use strict';
+    const translations={
+      ru:{title:['В нужное время,','в нужном месте.'],wish:'Пока звезда летит, загадайте желание.',reducedWish:'Загадайте желание.',done:'Пусть сбудется.',again:'Загадать ещё одно',page:'Загадайте желание — RK',nav:'Выбор языка',scene:'Ночное небо и падающая звезда'},
+      en:{title:['At the right time,','in the right place.'],wish:'Make a wish while the star is falling.',reducedWish:'Make a wish.',done:'May it come true.',again:'Make another wish',page:'Make a Wish — RK',nav:'Choose language',scene:'Night sky and a shooting star'},
+      zh:{title:['恰逢其时，','恰到其处。'],wish:'趁流星划过，许个愿吧。',reducedWish:'许个愿吧。',done:'愿你心想事成。',again:'再许一个愿',page:'许个愿 — RK',nav:'选择语言',scene:'夜空与流星'}
+    };
+    const experience=document.getElementById('experience');
+    const languageNav=document.getElementById('language-nav');
+    const sky=document.getElementById('sky');
+    const ctx=sky.getContext('2d',{alpha:true});
+    const heading=document.getElementById('headline');
+    const instruction=document.getElementById('instruction');
+    const again=document.getElementById('repeat');
+    const againLabel=document.getElementById('repeat-text');
+    const description=document.getElementById('description');
+    const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const delay=2900, duration=5700, fadeTime=540;
+    let language='ru',width=0,height=0,dpr=1,starfield=[],particles=[];
+    let started=0,finished=false, trajectory={};
+    let animationFrame=0, nextFrameTimer=0, hiddenAt=0;
+    let textTimer=0,buttonTimer=0,reducedTimer=0;
+    try{
+      const saved=localStorage.getItem('rk-wish-lang');
+      const locale=(navigator.language||'en').toLowerCase();
+      language=saved&&translations[saved]?saved:locale.startsWith('zh')?'zh':locale.startsWith('ru')?'ru':'en';
+    }catch(e){}
+    function fillHeading(lines){
+      heading.replaceChildren(...lines.map(line=>{
+        const span=document.createElement('span');span.textContent=line;return span;
+      }));
+    }
+    function setLanguage(l){
+      language=l;
+      const t=translations[l];
+      document.documentElement.lang=l==='zh'?'zh-CN':l;
+      document.title=t.page;
+      languageNav.setAttribute('aria-label',t.nav);
+      experience.setAttribute('aria-label',t.scene);
+      description.setAttribute('content',`${t.title.join(' ')} ${reduced?t.reducedWish:t.wish}`);
+      fillHeading(finished?[t.done]:t.title);
+      instruction.textContent=reduced?t.reducedWish:t.wish;
+      instruction.setAttribute('aria-hidden',String(finished));
+      againLabel.textContent=t.again;
+      document.querySelectorAll('.lang').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===l)));
+      try{localStorage.setItem('rk-wish-lang',l)}catch(e){}
+    }
+    document.querySelectorAll('.lang').forEach(b=>b.addEventListener('click',()=>setLanguage(b.dataset.lang)));
+    // Stable star placement on a given screen size; twinkling is intentionally rare.
+    function random(seed){let v=seed>>>0;return ()=>{v=(Math.imul(v,1664525)+1013904223)>>>0;return v/4294967296;};}
+    function resize(){
+      width=window.innerWidth;height=window.innerHeight;
+      // Keep the full-screen starfield light even on 4K/Retina displays.
+      // A 6MP cap uses <=24MB for the main RGBA pixel buffer.
+      dpr=Math.min(window.devicePixelRatio||1,2,4096/width,4096/height,Math.sqrt(6000000/(width*height)));
+      sky.width=Math.round(width*dpr);sky.height=Math.round(height*dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      const rnd=random(420805),count=Math.min(185,Math.max(70,Math.round(width*height/7200)));
+      starfield=Array.from({length:count},()=>({
+        x:rnd()*width,y:rnd()*height*.83,r:.35+rnd()*1.05,
+        a:.15+rnd()*.52,twinkle:rnd()<.11,
+        phase:rnd()*Math.PI*2,speed:.00060+rnd()*.00055,halo:7+rnd()*6
+      }));
+      if(Number.isFinite(trajectory.x0))draw(performance.now());
+    }
+    window.addEventListener('resize',resize,{passive:true});
+    function chooseTrajectory(){
+      const mobile=width<700;
+      trajectory={
+        x0:.055+Math.random()*.035,x1:.91+Math.random()*.035,
+        y0:(mobile?.155:.14)+Math.random()*.028,
+        y1:(mobile?.37:.36)+Math.random()*(mobile?.055:.045),
+        curve:.009+Math.random()*.018
+      };
+    }
+    function position(t){
+      return {
+        x:width*(trajectory.x0+(trajectory.x1-trajectory.x0)*t),
+        y:height*(trajectory.y0+(trajectory.y1-trajectory.y0)*t+trajectory.curve*Math.sin(Math.PI*t))
+      };
+    }
+    function drawMeteor(p,opacity){
+      if(opacity<=0)return;
+      const pos=position(p),start=Math.max(0,p-.27),tail=position(start),segments=36;
+      const grad=ctx.createLinearGradient(tail.x,tail.y,pos.x,pos.y);
+      grad.addColorStop(0,'rgba(130,173,245,0)');
+      grad.addColorStop(.55,'rgba(150,193,255,.08)');
+      grad.addColorStop(.87,'rgba(178,210,255,.25)');
+      grad.addColorStop(1,'rgba(225,240,255,.72)');
+      ctx.save();ctx.globalAlpha=opacity*.50;ctx.strokeStyle=grad;ctx.lineWidth=5.5;
+      ctx.lineCap='round';ctx.shadowColor='#9fc6ff';ctx.shadowBlur=13;
+      ctx.beginPath();for(let i=0;i<=segments;i++){
+        const v=position(start+(p-start)*i/segments);
+        if(i===0)ctx.moveTo(v.x,v.y);else ctx.lineTo(v.x,v.y);
+      }ctx.stroke();ctx.restore();
+      // A delicate tapered filament: each segment becomes thinner toward the rear.
+      ctx.lineCap='round';
+      for(let i=0;i<segments;i++){
+        const f=(i+.5)/segments;
+        const a=position(start+(p-start)*i/segments),b=position(start+(p-start)*(i+1)/segments);
+        ctx.strokeStyle=`rgba(218,234,255,${Math.pow(f,1.75)*.75*opacity})`;
+        ctx.lineWidth=.13+1.1*Math.pow(f,1.65);
+        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+      }
+      // Dust is left behind at fixed release points, then slowly drifts and disappears.
+      ctx.save();
+      for(const s of particles){
+        const age=p-s.release;
+        if(age<0||age>s.life)continue;
+        const decay=1-age/s.life;
+        const origin=position(s.release);
+        const drift=age/s.life;
+        ctx.globalAlpha=opacity*decay*decay*s.alpha;
+        ctx.fillStyle=s.warm?'#e8e5e2':'#aacfff';
+        ctx.beginPath();ctx.arc(origin.x+s.dx*drift,origin.y+s.dy*drift+s.gravity*drift*drift,s.radius,0,Math.PI*2);ctx.fill();
+      }
+      ctx.restore();
+      const glow=ctx.createRadialGradient(pos.x,pos.y,0,pos.x,pos.y,16);
+      glow.addColorStop(0,`rgba(255,255,255,${.86*opacity})`);
+      glow.addColorStop(.16,`rgba(218,232,255,${.48*opacity})`);
+      glow.addColorStop(.49,`rgba(134,178,251,${.13*opacity})`);
+      glow.addColorStop(1,'rgba(120,155,245,0)');
+      ctx.fillStyle=glow;ctx.beginPath();ctx.arc(pos.x,pos.y,16,0,Math.PI*2);ctx.fill();
+      ctx.globalAlpha=opacity*.93;ctx.fillStyle='#f7fbff';ctx.beginPath();ctx.arc(pos.x,pos.y,1.35,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
+    }
+    function showCompletion(){
+      if(finished)return;
+      finished=true;
+      heading.classList.add('changing');instruction.classList.add('done');instruction.setAttribute('aria-hidden','true');
+      clearTimeout(textTimer);clearTimeout(buttonTimer);
+      textTimer=setTimeout(()=>{
+        fillHeading([translations[language].done]);
+        heading.classList.remove('changing');
+        if(reduced)draw(performance.now());
+        buttonTimer=setTimeout(()=>{
+          again.disabled=false;again.removeAttribute('aria-hidden');again.tabIndex=0;
+          again.classList.add('visible');
+        },reduced?0:330);
+      },reduced?0:450);
+    }
+    function draw(now){
+      ctx.clearRect(0,0,width,height);
+      for(const s of starfield){
+        const wave=s.twinkle&&!reduced?.5+.5*Math.sin(now*s.speed+s.phase):0;
+        const shimmer=Math.pow(wave,7);
+        if(shimmer>.08){
+          const halo=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.halo);
+          halo.addColorStop(0,'rgba(219,235,255,.46)');
+          halo.addColorStop(.35,'rgba(156,194,255,.20)');
+          halo.addColorStop(1,'rgba(125,165,255,0)');
+          ctx.globalAlpha=shimmer*.75;ctx.fillStyle=halo;
+          ctx.beginPath();ctx.arc(s.x,s.y,s.halo,0,Math.PI*2);ctx.fill();
+          if(shimmer>.34){
+            const ray=2.5+shimmer*2.7;ctx.globalAlpha=shimmer*.32;
+            ctx.strokeStyle='#e2eeff';ctx.lineWidth=.65;
+            ctx.beginPath();ctx.moveTo(s.x-ray,s.y);ctx.lineTo(s.x+ray,s.y);
+            ctx.moveTo(s.x,s.y-ray);ctx.lineTo(s.x,s.y+ray);ctx.stroke();
+          }
+        }
+        ctx.globalAlpha=Math.min(.95,s.a*(s.twinkle?.82+shimmer*.5:1));
+        ctx.fillStyle='#dbe8ff';ctx.beginPath();ctx.arc(s.x,s.y,s.r*(1+shimmer*.2),0,Math.PI*2);ctx.fill();
+      }
+      ctx.globalAlpha=1;
+      if(reduced){if(!finished)drawMeteor(.50,.70);return;}
+      const elapsed=now-started-delay;
+      if(elapsed<0)return;
+      if(elapsed<=duration+fadeTime){
+        const linear=Math.max(0,Math.min(1,elapsed/duration));
+        // Accelerate gently at the start; the movement stays fluid until fadeout.
+        const p=linear<.20?2.5*linear*linear:.10+1.125*(linear-.20);
+        const fadeIn=Math.min(1,Math.max(0,elapsed/280));
+        const fadeOut=Math.min(1,Math.max(0,(duration+fadeTime-elapsed)/fadeTime));
+        drawMeteor(Math.min(1,p),fadeIn*fadeOut);
+      }
+      if(elapsed>=duration+290&&!finished)showCompletion();
+    }
+    function clearTick(){clearTimeout(nextFrameTimer);cancelAnimationFrame(animationFrame);nextFrameTimer=0;animationFrame=0;}
+    function tick(now){
+      if(document.hidden)return;
+      draw(now);
+      const elapsed=now-started-delay;
+      const active=!finished&&elapsed>=-100&&elapsed<=duration+fadeTime;
+      // ~34 FPS during the meteor, ~12 FPS for the quiet twinkling sky.
+      nextFrameTimer=setTimeout(()=>{animationFrame=requestAnimationFrame(tick);},active?28:80);
+    }
+    document.addEventListener('visibilitychange',()=>{
+      if(document.hidden){hiddenAt=performance.now();clearTick();}
+      else{
+        if(hiddenAt)started+=performance.now()-hiddenAt;
+        hiddenAt=0;
+        if(!reduced){clearTick();animationFrame=requestAnimationFrame(tick);}
+      }
+    });
+    function restart(){
+      clearTimeout(textTimer);clearTimeout(buttonTimer);clearTimeout(reducedTimer);
+      finished=false;started=performance.now();chooseTrajectory();
+      const rnd=random(Math.floor(Math.random()*4294967295));
+      particles=Array.from({length:38},()=>({
+        release:.07+rnd()*.87,life:.065+rnd()*.105,
+        dx:-5-rnd()*16,dy:(rnd()-.5)*16,gravity:2+rnd()*9,
+        radius:.35+rnd()*.72,alpha:.22+rnd()*.52,warm:rnd()<.25
+      }));
+      again.classList.remove('visible');again.disabled=true;
+      again.setAttribute('aria-hidden','true');again.tabIndex=-1;
+      instruction.classList.remove('done');instruction.setAttribute('aria-hidden','false');heading.classList.remove('changing');
+      fillHeading(translations[language].title);
+      instruction.textContent=reduced?translations[language].reducedWish:translations[language].wish;
+      if(reduced){draw(performance.now());reducedTimer=setTimeout(showCompletion,6500);}
+      else draw(performance.now());
+    }
+    again.addEventListener('click',restart);
+    resize();setLanguage(language);restart();
+    if(!reduced)animationFrame=requestAnimationFrame(tick);
+  })();
+  </script>
+</body>
+</html>
